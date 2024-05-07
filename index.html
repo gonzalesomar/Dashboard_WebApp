@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
 </head>
 <body>
     <div class = "dashboard"> <!-- This is where the dashboard will be displayed -->
@@ -102,13 +103,12 @@
 
         </section>  <!-- End Main-->
 
-        <section class = "Calendar"> <!-- Calendar-->
-
+        <section class="Calendar"> <!-- Calendar-->
             <div class="chart">
                 <h2> Calendarizacion de Riego </h2>
+                <div id='calendar'></div>
                 <canvas id="myChart"></canvas>
             </div>              
-
         </section> <!-- Calendar End-->
 
 
@@ -117,9 +117,9 @@
 
 <!-- Script for the charts -->
 <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var bat_1 = document.getElementById('battery_1').getContext('2d');
-    var bat_2 = document.getElementById('battery_2').getContext('2d');
+    var ctx = document.getElementById('myChart');
+    var bat_1 = document.getElementById('battery_1');
+    var bat_2 = document.getElementById('battery_2');
 
     // Grafica de humedad
     new Chart(ctx, {
@@ -133,13 +133,6 @@
         }]
       },
       options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        },
         centerText: {
           display: true,
           text: "80%"
@@ -177,7 +170,6 @@
             }
         }
     });
-
     // Sensor 2
     new Chart(bat_2, {
         type: 'doughnut',
@@ -206,10 +198,22 @@
                 display: true,
                 text: "80%"
             }
-        }
+        }    
     });
     
+    // Calendar
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            selectable: true,
+            select: function(info) {
+                alert('selected ' + info.startStr + ' to ' + info.endStr);
+                // Here you can add your code to activate the actuator
+            }
+        });
+        calendar.render();
+    });
 </script> <!-- End Script for the charts -->
-
 
 </html>
