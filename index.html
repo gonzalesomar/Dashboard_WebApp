@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Sensors Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class = "dashboard"> <!-- This is where the dashboard will be displayed -->
+        <section class = "navigation"> 
+            <img src = "assets/img/Logo.png" alt = "home logo">
+            
+            <div> 
+                <span class="material-symbols-outlined"> home </span>
+                <p>  Principal </p>
+                <span class="material-symbols-outlined">
+                    chart_data
+                </span>
+                <p>  Estadisticas </p>
+                <span class="material-symbols-outlined"> live_help </span>
+                <p>  Ayuda </p>
+            </div>
+        </section>
+
+        <section class = "main"> <!-- Main-->
+            <div class="search"> <!-- Search-->
+                <form action = "">
+                    <input type="text" name="search" id ="search" placeholder="Busqueda">
+                    <span class="material-symbols-outlined"> search_insights </span>
+                </form>
+                <div class="notification">
+                    <span class="material-symbols-outlined"> notifications </span>
+                    <span class="material-symbols-outlined"> edit </span>
+                </div>
+            </div> <!-- Search End-->
+
+            <div class="title"> <!-- Title-->
+                <h1> Dashboard </h1>
+                <form action = "#">
+                    <label for="projects"> Ordernar por </label>
+                    <select name="projects" id="projects">
+                        <option value="sensor1"> Sensor 1 </option>
+                        <option value="sensor2"> Sensor 2 </option>
+                    </select>
+                </form>
+                <p>  Monitorea el status de sensores en tiempo real</p>
+            </div> <!-- Title End-->
+
+            <div class="sensors"> <!-- Sensors-->
+                <div class="sensor_1">
+                    <div class="category"></div>
+                    <h2> Sensor 1 </h2>
+                    <p>  Actualizado hace 15 minutos </p>
+
+                    <div class="humedad">
+                        <span class="material-symbols-outlined"> humidity_low </span>
+                        <p>  Humedad </p>
+                        <p>  30% RH</p>
+                    </div>
+                    <div class="ec">
+                        <span class="material-symbols-outlined"> bolt </span>
+                        <p>  Conductividad Electrica </p>
+                        <p>  1.5 mS/cm</p>
+                    </div>
+                    <div class="battery">
+                        <span class="material-symbols-outlined"> battery_0_bar </span>
+                        <p>  Bateria </p>
+                        <p>  15% </p>
+                        <div style="width: 500px; height: 500px;">
+                            <canvas id="battery_1"></canvas>
+                        </div>
+                    </div>  
+                    
+                </div> <!-- Sensor 1 End-->
+
+                <div class="sensor_2"> <!-- Sensor 2-->
+                    <h2> Sensor 2 </h2>
+                    <div class="category"> </div>
+                    <div class="humedad">
+                        <span class="material-symbols-outlined"> humidity_low </span>
+                        <p>  Humedad </p>
+                        <p>  40% RH</p>
+                    </div>
+                    <div class="ec">
+                        <span class="material-symbols-outlined"> bolt </span>
+                        <p>  Conductividad Electrica </p>
+                        <p>  2.5 mS/cm</p>
+                    </div>
+                    <div class="battery">
+                        <span class="material-symbols-outlined"> battery_0_bar </span>
+                        <p>  Bateria </p>
+                        <p>  80% </p>
+                        <div style="width: 500px; height: 500px;">
+                            <canvas id="battery_2"></canvas>
+                        </div>
+                    </div>
+                </div>    
+            </div> <!-- Sensors End-->
+
+        </section>  <!-- End Main-->
+
+        <section class = "Calendar"> <!-- Calendar-->
+
+            <div class="chart">
+                <h2> Calendarizacion de Riego </h2>
+                <canvas id="myChart"></canvas>
+            </div>              
+
+        </section> <!-- Calendar End-->
+
+
+    </div> <!-- End Dashboard-->
+</body>
+
+<!-- Script for the charts -->
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var bat_1 = document.getElementById('battery_1').getContext('2d');
+    var bat_2 = document.getElementById('battery_2').getContext('2d');
+
+    // Grafica de humedad
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+        datasets: [{
+          label: '% Humedad',
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        },
+        centerText: {
+          display: true,
+          text: "80%"
+        }
+      }
+    });
+    // Sensor 1
+    new Chart(bat_1, {
+        type: 'doughnut',
+        data: {
+            labels: ['Battery Level', 'Remaining Capacity'],
+            datasets: [{
+                data: [15,85],
+                backgroundColor: ['rgba(75, 192, 192, 0.4)', 'rgba(255, 99, 132, 0.4)'],
+                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                borderWidth: 1,
+                hoverOffset: 4
+
+            }]
+        },
+        options: {
+        responsive: true,
+        tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.labels[tooltipItem.index];
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return label + ': ' + value + '%';
+                    }
+                }
+            },
+        centerText: {
+            display: true,
+            text: "80%"
+            }
+        }
+    });
+
+    // Sensor 2
+    new Chart(bat_2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Battery Level', 'Remaining Capacity'],
+            datasets: [{
+                data: [80,20],
+                backgroundColor: ['rgba(75, 192, 192, 0.4)', 'rgba(255, 99, 132, 0.4)'],
+                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                borderWidth: 1,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.labels[tooltipItem.index];
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return label + ': ' + value + '%';
+                    }
+                }
+            },
+            centerText: {
+                display: true,
+                text: "80%"
+            }
+        }
+    });
+    
+</script> <!-- End Script for the charts -->
+
+
+</html>
