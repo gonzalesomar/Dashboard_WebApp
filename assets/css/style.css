@@ -1,0 +1,197 @@
+*{
+    box-sizing: border-box;
+    font-family: "Nunito Sans", sans-serif;
+}
+body{
+    margin: 0px;
+    background-color: #f5f5f5;
+}
+.dashboard{
+    padding: 0px 15px;
+    margin: 0 auto;
+}
+/* ==============================================
+                    Navigation
+================================================= */
+.dashboard .navigation{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #0A0A0A;
+    color: #ffffff;
+    margin-top: 10px;
+}
+.dashboard .navigation img{
+    margin-top: 15px;
+    width: 160px;
+    height: 80px;
+    border-radius: 10px;
+}
+.dashboard .navigation div{
+    margin-top: 25px;
+}
+.dashboard .navigation div span{
+    display: flex;
+    align-items: center;
+}
+
+.dashboard .navigation div span .material-symbols-outlined {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 30px;
+}
+.dashboard .navigation div span .text{
+    font-size: 25px;
+    margin-left: 2px;
+}
+
+/* ==============================================
+                 Main Dashboard
+================================================= */
+/* Search */
+.dashboard .main .search form{
+    margin-top: 50px;
+    position: relative;
+}
+.dashboard .main .search form input{
+    width: 100%;
+    padding: 10px 10px 10px 60px;
+    border: 0px solid #ffffff;
+    border-bottom: 1px solid #727272;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    background-color: rgba( 0 0 0 / 0);
+}
+.dashboard .main .search form input::placeholder{
+    color: #727272;
+}
+.dashboard .main .search form span{
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    color: #727272;
+}
+.dashboard .main .search .notification{
+    margin-top: 20px;
+}
+.dashboard .main .search .notification span:nth-child(1){
+    margin-right: 15px;
+}
+/* Tittle */
+.dashboard .main .title {
+    margin-bottom: 30px;
+}
+.dashboard .main .title h1{
+    font-size: 35px;
+    line-height: 0px;
+}
+.dashboard .main .title form{
+    margin-top: 40px;
+}
+.dashboard .main .title form label{
+    margin-right: 15px;
+    color: #727272;
+    font-size: 16px;
+}
+.dashboard .main .title form select{
+    border: none;
+    font-size: 16px;
+    background-color: rgba( 0 0 0 / 0);
+}
+
+/* Sensors */
+.dashboard .main .sensors{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 50px;
+    align-items: center;
+    margin-left: 15px;
+}
+.dashboard h2{
+    font-size: 25px;
+    margin-left: 5px;
+    color: #727272;
+}
+.dashboard p{
+    color: #727272;
+    margin-left: 5px;
+}
+
+.dashboard .main .sensors h3{
+    font-size: 25px;
+    margin-left: 20px;
+    font-weight: 500;
+}
+.dashboard .main .sensors .value{
+    font-size: 40px;
+    margin-left: 20px;
+    font-weight: 700;
+}
+.dashboard .main .sensors .units{
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.dashboard .main .sensors .humedad{
+    padding: 20px 20px 20px 10px;
+    background-color: rgba(168, 224, 255, 0.3);
+    box-shadow: 1px 1px 40px rgba( 0 0 0 / .01);
+    margin-bottom: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dashboard .main .sensors .ec{
+    padding: 20px 20px 20px 10px;
+    background-color: rgba(243, 255, 168, 0.3);
+    box-shadow: 1px 1px 40px rgba( 0 0 0 / .01);
+    margin-bottom: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dashboard .main .sensors .battery{
+    padding: 20px 20px 20px 10px;
+    background-color: rgba(108, 227, 134, 0.3);
+    box-shadow: 1px 1px 40px rgba( 0 0 0 / .01);
+    margin-bottom: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard .main .sensors .material-symbols-outlined{
+    font-size: 90px;
+}
+
+/* ==============================================
+                 Calendar
+================================================= */
+.dashboard .calendarizacion div{
+    width: 95%;
+    margin: auto;
+    color: #727272;
+}
+button {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* No border */
+    color: white; /* White text */
+    padding: 15px 32px; /* Padding around the text */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* No underline */
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer; /* Change cursor to pointer when hovering over the button */
+    border-radius: 12px; /* Rounded corners */
+    transition-duration: 0.4s; /* Transition effect when hovering over the button */
+}
+
+button:hover {
+    background-color: #45a049; /* Change background color when hovering over the button */
+}
