@@ -7,7 +7,7 @@ body{
     background-color: #f5f5f5;
 }
 .dashboard{
-    padding: 0px 15px;
+    padding: 0px 10px;
     margin: 0 auto;
 }
 /* ==============================================
@@ -17,12 +17,13 @@ body{
     display: flex;
     justify-content: space-between;
     width: 100%;
-    background-color: #0A0A0A;
+    background-color: #242424;
     color: #ffffff;
     margin-top: 10px;
 }
 .dashboard .navigation img{
     margin-top: 15px;
+    margin-left: 10px;
     width: 160px;
     height: 80px;
     border-radius: 10px;
@@ -30,27 +31,44 @@ body{
 .dashboard .navigation div{
     margin: auto;
 }
-.dashboard .navigation div span{
+.dashboard .navigation div .paginas{
     display: flex;
-    align-items: center;
+    justify-content: left;
+    border-radius: 5%;
+    margin: 5px 20px;
 }
 
 .dashboard .navigation div span .material-symbols-outlined {
-    margin-left: 5px;
-    margin-right: 5px;
-    font-size: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .dashboard .navigation div span .text{
-    font-size: 25px;
+    font-size: 20px;
     margin-left: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.dashboard .navigation div .paginas:hover {
+    background-color: #c4eb5a; /* Change background color when hovering over the button */
+    color:#242424;
 }
 
 /* ==============================================
                  Main Dashboard
 ================================================= */
 /* Search */
+.dashboard .main .search{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .dashboard .main .search form{
-    margin-top: 50px;
+    margin-top: 30px;
+    margin-bottom: 10px;
     position: relative;
 }
 .dashboard .main .search form input{
@@ -77,7 +95,20 @@ body{
 }
 .dashboard .main .search .notification span:nth-child(1){
     margin-right: 15px;
+    position: relative;
 }
+.dashboard .main .search .notification span:nth-child(1)::before{
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: sandybrown;
+    position: absolute;
+    border-radius: 50%;
+    top: 3px;
+}
+
+
+
 /* Tittle */
 .dashboard .main .title {
     margin-bottom: 30px;
@@ -230,5 +261,51 @@ button:hover {
     }
     .dashboard .calendarizacion .riego{
         width: 35%;
+    }
+}
+/* Media Query 1024 px */
+@media only screen and (min-width: 1024px){
+    .dashboard{
+        padding: 0px 0px;
+        margin: 0 auto;
+    }
+    .dashboard .navigation,
+    .dashboard .navigation div span,
+    .dashboard .calendarizacion{
+        display: block;
+    }
+    .dashboard .navigation{
+        width: 200px;
+        position: fixed;
+        z-index: 5;
+        top: 5px;
+    }
+    .dashboard .navigation div span{
+        display: flex;
+    }
+    .dashboard .main{
+        top: 5px;
+        width: 50%;
+        margin-left: 220px;
+        margin-right: 20px;
+    }
+    .dashboard .calendarizacion{
+        width: 30%;
+        padding-top: 0px;
+        position: fixed;
+        top: 5px;
+        right: 0px;
+    }
+    .dashboard .calendarizacion .calendario,
+    .dashboard .calendarizacion .riego{
+        width: 100%;
+        border-radius: 10px;
+    }
+    .dashboard .navigation div{
+        margin-top: 5vh;
+        margin-bottom: 100vh;
+    }
+    .dashboard .navigation div .paginas{
+        margin-top: 5vh;
     }
 }
