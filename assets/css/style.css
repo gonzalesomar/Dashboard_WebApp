@@ -4,10 +4,10 @@
 }
 body{
     margin: 0px;
-    background-color: #f5f5f5;
+    background-color: #f6f1f151;
 }
 .dashboard{
-    padding: 0px 10px;
+    padding: 0px 0px;
     margin: 0 auto;
 }
 /* ==============================================
@@ -19,7 +19,6 @@ body{
     width: 100%;
     background-color: #242424;
     color: #ffffff;
-    margin-top: 10px;
 }
 .dashboard .navigation img{
     margin-top: 15px;
@@ -28,31 +27,33 @@ body{
     height: 80px;
     border-radius: 10px;
 }
-.dashboard .navigation div{
+.dashboard .navigation nav{
     margin: auto;
 }
-.dashboard .navigation div .paginas{
+.dashboard .navigation nav a{
     display: flex;
     justify-content: left;
     border-radius: 5%;
     margin: 5px 20px;
+    text-decoration: none; /* Removes the underline */
+    color: white;
 }
 
-.dashboard .navigation div span .material-symbols-outlined {
+.dashboard .navigation nav a .material-symbols-outlined {
     margin-left: 10px;
     margin-right: 10px;
     font-size: 25px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.dashboard .navigation div span .text{
+.dashboard .navigation nav a .text{
     font-size: 20px;
     margin-left: 2px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.dashboard .navigation div .paginas:hover {
+.dashboard .navigation nav a:hover {
     background-color: #c4eb5a; /* Change background color when hovering over the button */
     color:#242424;
 }
@@ -140,7 +141,7 @@ body{
 .dashboard h2{
     font-size: 25px;
     margin-left: 5px;
-    color: #727272;
+    color: black;
 }
 .dashboard p{
     color: #727272;
@@ -162,38 +163,56 @@ body{
     font-size: 20px;
 }
 
-.dashboard .main .sensors .humedad{
+.humedad{
     padding: 10px 20px 20px 10px;
-    background-color: rgba(168, 224, 255, 0.3);
+    background-color: rgba(136, 218, 251, 0.482);
     box-shadow: 1px 1px 40px rgba( 0 0 0 / .01);
     margin-bottom: 20px;
     border-radius: 10px;
+}
+.humedad span{
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    /* width: 80%; */
+    /* width: 100%; */
 }
+.humedad .chart div{
+    width: 33%;
+}
+.humedad .chart canvas{
+    margin-right: 15px;
+}
+
+
+/* .dashboard .main .sensors .humedad span canvas{
+    width: 100px;
+    height: 100px;
+} */
+
 .dashboard .main .sensors .ec{
     padding: 10px 20px 20px 10px;
-    background-color: rgba(243, 255, 168, 0.3);
+    background-color: rgba(243, 255, 168, 0.5);
     box-shadow: 1px 1px 40px rgba( 0 0 0 / .01);
     margin-bottom: 20px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* width: 80%; */
+}
+.dashboard .main .sensors .ec:hover{
+    background-color: rgba(243, 255, 168, 0.5);
 }
 .dashboard .main .sensors .battery{
     padding: 10px 20px 20px 10px;
-    background-color: rgba(108, 227, 134, 0.3);
-    box-shadow: 1px 1px 40px rgba( 0 0 0 / .01);
+    background-color: rgba(108, 227, 134, 0.5);
+    box-shadow: 1px 1px 40px rgba( 0 0 0 / .1);
     margin-bottom: 20px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* width: 80%; */
+}
+.dashboard .main .sensors .battery:hover{
+    background-color: rgba(108, 227, 134, 0.5);
 }
 .dashboard .main .sensors .material-symbols-outlined{
     font-size: 70px;
@@ -270,7 +289,7 @@ button:hover {
         margin: 0 auto;
     }
     .dashboard .navigation,
-    .dashboard .navigation div span,
+    .dashboard .navigation nav a,
     .dashboard .calendarizacion{
         display: block;
     }
@@ -278,9 +297,8 @@ button:hover {
         width: 200px;
         position: fixed;
         z-index: 5;
-        top: 5px;
     }
-    .dashboard .navigation div span{
+    .dashboard .navigation nav a{
         display: flex;
     }
     .dashboard .main{
@@ -301,11 +319,11 @@ button:hover {
         width: 100%;
         border-radius: 10px;
     }
-    .dashboard .navigation div{
+    .dashboard .navigation nav{
         margin-top: 5vh;
         margin-bottom: 100vh;
     }
-    .dashboard .navigation div .paginas{
+    .dashboard .navigation nav a{
         margin-top: 5vh;
     }
 }

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoT Sensors Dashboard</title>
+    <title>Agrosense</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,22 +19,22 @@
     <div class = "dashboard"> <!-- This is where the dashboard will be displayed -->
         <section class = "navigation"> <!-- Navigation-->
             <img src = "assets/img/logo_v2.svg" alt = "home logo">
-            <div> 
-                <span class = "paginas">
+            <nav> 
+                <a href="./index.html">
                     <span class="material-symbols-outlined"> home </span>
                     <span class="text">  Principal </span>
-                </span>
+                </a>
 
-                <span class = "paginas">
+                <a href="./stats.html">
                     <span class="material-symbols-outlined"> chart_data </span>
                     <span class="text">  Estadisticas </span>
-                </span>
+                </a>
 
-                <span class = "paginas">
+                <a href="./help.html">
                     <span class="material-symbols-outlined"> live_help </span>
                     <span class="text">  Ayuda </span>
-                </span>
-            </div>
+                </a>
+            </nav>
         </section> <!-- Navigation End-->
 
         <section class = "main"> <!-- Main-->
@@ -71,9 +72,6 @@
                             <span class = 'units'>  % </span> 
                         </span>
                         <span class="material-symbols-outlined"> battery_0_bar </span>
-                        <!-- <div class = 'value_bat'>
-                            <canvas id="battery_1"></canvas>
-                        </div> -->
                     </div>  
 
                     <div class="humedad">
@@ -115,11 +113,23 @@
                     <div class="humedad">
                         <span>
                             <h3>  Humedad </h3>
-                            <span class = 'value'>  40 </span>
-                            <span class = 'units'> %RH </span>
+                            <p> % RH</p>
+                            <!-- <span class="material-symbols-outlined"> humidity_low </span> -->
                         </span>
-
-                        <span class="material-symbols-outlined"> humidity_low </span>
+                        <span class = 'chart'>
+                            <div>
+                                <canvas id="h1_sensor2"></canvas>
+                                <p> Al 25%</p>
+                            </div>
+                            <div>
+                                <canvas id="h2_sensor2"></canvas>
+                                <p> Al 50%</p>
+                            </div>
+                            <div>
+                                <canvas id="h3_sensor2"></canvas>
+                                <p> Al 75%</p>
+                            </div>
+                        </span>
                     </div>
 
                     <div class="ec">
@@ -149,35 +159,132 @@
                 <button> Activar Riego </button>
             </span>
         </section> <!-- Calendar End-->
-
-        <!-- <canvas id="myChart"></canvas> -->
-
     </div> <!-- End Dashboard-->
 </body>
 
 <!-- Script for the charts -->
 <script>
-    var ctx = document.getElementById('myChart');
+    var h1_s2 = document.getElementById('h1_sensor2').getContext('2d');
+    var h2_s2 = document.getElementById('h2_sensor2').getContext('2d');
+    var h3_s2 = document.getElementById('h3_sensor2').getContext('2d');
 
-    // Grafica de humedad
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
-        datasets: [{
-          label: '% Humedad',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1
+    var chart = new Chart(h1_s2, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [56, 44], // 30% humidity, 70% remaining
+                backgroundColor: ['#2d9f21', '#f6f1f151'],
+                borderColor: 'rgba(0, 0, 0, 0)'
+            }],
+            labels: ['Humidity', 'Remaining']
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true, 
+            cutout: '70%', // This makes it a donut chart
+            plugins: {
+                legend: {
+                    display: false // This hides the legend
+                },
+                tooltip: {
+                enabled: false // This disables the tooltip
+                }
+            }
+        },
+        plugins: [{
+            afterDraw: function(chart) {
+                if (chart.data.datasets && chart.data.datasets[0]) {
+                    var ctx = chart.ctx;
+                    var value = chart.data.datasets[0].data[0]; // Get the value of the first dataset
+                    var cx = chart.chartArea.left + chart.chartArea.width / 2;
+                    var cy = chart.chartArea.top + chart.chartArea.height / 2;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.font = '20px Arial';
+                    ctx.fillStyle = 'black';
+                    ctx.fillText(value + '%', cx, cy);
+                }
+            }
         }]
-      },
-      options: {
-        centerText: {
-          display: true,
-          text: "80%"
-        }
-      }
     });
-    
+    var chart = new Chart(h2_s2, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [40, 60], // 30% humidity, 70% remaining
+                backgroundColor: ['#2d9f21', '#f6f1f151'],
+                borderColor: 'rgba(0, 0, 0, 0)'
+            }],
+            labels: ['Humidity', 'Remaining']
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true, 
+            cutout: '70%', // This makes it a donut chart
+            plugins: {
+                legend: {
+                    display: false // This hides the legend
+                },
+                tooltip: {
+                enabled: false // This disables the tooltip
+                }
+            }
+        },
+        plugins: [{
+            afterDraw: function(chart) {
+                if (chart.data.datasets && chart.data.datasets[0]) {
+                    var ctx = chart.ctx;
+                    var value = chart.data.datasets[0].data[0]; // Get the value of the first dataset
+                    var cx = chart.chartArea.left + chart.chartArea.width / 2;
+                    var cy = chart.chartArea.top + chart.chartArea.height / 2;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.font = '20px Arial';
+                    ctx.fillStyle = 'black';
+                    ctx.fillText(value + '%', cx, cy);
+                }
+            }
+        }]
+    });
+    var chart = new Chart(h3_s2, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [20, 80], // 30% humidity, 70% remaining
+                backgroundColor: ['#2d9f21', '#f6f1f151'],
+                borderColor: 'rgba(0, 0, 0, 0)'
+            }],
+            labels: ['Humidity', 'Remaining']
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true, 
+            cutout: '70%', // This makes it a donut chart
+            plugins: {
+                legend: {
+                    display: false // This hides the legend
+                },
+                tooltip: {
+                enabled: false // This disables the tooltip
+                }
+            }
+        },
+        plugins: [{
+            afterDraw: function(chart) {
+                if (chart.data.datasets && chart.data.datasets[0]) {
+                    var ctx = chart.ctx;
+                    var value = chart.data.datasets[0].data[0]; // Get the value of the first dataset
+                    var cx = chart.chartArea.left + chart.chartArea.width / 2;
+                    var cy = chart.chartArea.top + chart.chartArea.height / 2;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.font = '20px Arial';
+                    ctx.fillStyle = 'black';
+                    ctx.fillText(value + '%', cx, cy);
+                }
+            }
+        }]
+    });
     // Calendar
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
