@@ -77,11 +77,23 @@
                     <div class="humedad">
                         <span>
                             <h3>  Humedad </h3>
-                            <span class = 'value'>  30 </span>
-                            <span class = 'units'> %RH </span>
+                            <p> % RH</p>
+                            <!-- <span class="material-symbols-outlined"> humidity_low </span> -->
                         </span>
-
-                        <span class="material-symbols-outlined"> humidity_low </span>
+                        <span class = 'chart'>
+                            <div>
+                                <canvas id="h1_sensor1"></canvas>
+                                <p> Al 25%</p>
+                            </div>
+                            <div>
+                                <canvas id="h2_sensor1"></canvas>
+                                <p> Al 50%</p>
+                            </div>
+                            <div>
+                                <canvas id="h3_sensor1"></canvas>
+                                <p> Al 75%</p>
+                            </div>
+                        </span>
                     </div>
                     <div class="ec">
                         <span>
@@ -105,9 +117,6 @@
                         </span>
 
                         <span class="material-symbols-outlined"> battery_0_bar </span>
-                        <!-- <div class="value_bat">
-                            <canvas id="battery_2"></canvas>
-                        </div> -->
                     </div>
 
                     <div class="humedad">
@@ -164,16 +173,26 @@
 
 <!-- Script for the charts -->
 <script>
+
+///////////////////////////////
+// HUMEDAD
+///////////////////////////////
+    // Variables de humedad
     var h1_s2 = document.getElementById('h1_sensor2').getContext('2d');
     var h2_s2 = document.getElementById('h2_sensor2').getContext('2d');
     var h3_s2 = document.getElementById('h3_sensor2').getContext('2d');
+    var h1_s1 = document.getElementById('h1_sensor1').getContext('2d');
+    var h2_s1 = document.getElementById('h2_sensor1').getContext('2d');
+    var h3_s1 = document.getElementById('h3_sensor1').getContext('2d');
 
-    var chart = new Chart(h1_s2, {
+    // Funcion para crear los charts de humedad
+    function createChartHumedad(element, data, backgroundColor) {
+    return new Chart(element, {
         type: 'doughnut',
         data: {
             datasets: [{
-                data: [56, 44], // 30% humidity, 70% remaining
-                backgroundColor: ['#2d9f21', '#f6f1f151'],
+                data: data,
+                backgroundColor: backgroundColor,
                 borderColor: 'rgba(0, 0, 0, 0)'
             }],
             labels: ['Humidity', 'Remaining']
@@ -181,13 +200,13 @@
         options: {
             responsive: true,
             maintainAspectRatio: true, 
-            cutout: '70%', // This makes it a donut chart
+            cutout: '70%',
             plugins: {
                 legend: {
-                    display: false // This hides the legend
+                    display: false
                 },
                 tooltip: {
-                enabled: false // This disables the tooltip
+                    enabled: false
                 }
             }
         },
@@ -195,7 +214,7 @@
             afterDraw: function(chart) {
                 if (chart.data.datasets && chart.data.datasets[0]) {
                     var ctx = chart.ctx;
-                    var value = chart.data.datasets[0].data[0]; // Get the value of the first dataset
+                    var value = chart.data.datasets[0].data[0];
                     var cx = chart.chartArea.left + chart.chartArea.width / 2;
                     var cy = chart.chartArea.top + chart.chartArea.height / 2;
                     ctx.textAlign = 'center';
@@ -207,85 +226,19 @@
             }
         }]
     });
-    var chart = new Chart(h2_s2, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [40, 60], // 30% humidity, 70% remaining
-                backgroundColor: ['#2d9f21', '#f6f1f151'],
-                borderColor: 'rgba(0, 0, 0, 0)'
-            }],
-            labels: ['Humidity', 'Remaining']
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true, 
-            cutout: '70%', // This makes it a donut chart
-            plugins: {
-                legend: {
-                    display: false // This hides the legend
-                },
-                tooltip: {
-                enabled: false // This disables the tooltip
-                }
-            }
-        },
-        plugins: [{
-            afterDraw: function(chart) {
-                if (chart.data.datasets && chart.data.datasets[0]) {
-                    var ctx = chart.ctx;
-                    var value = chart.data.datasets[0].data[0]; // Get the value of the first dataset
-                    var cx = chart.chartArea.left + chart.chartArea.width / 2;
-                    var cy = chart.chartArea.top + chart.chartArea.height / 2;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.font = '20px Arial';
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(value + '%', cx, cy);
-                }
-            }
-        }]
-    });
-    var chart = new Chart(h3_s2, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [20, 80], // 30% humidity, 70% remaining
-                backgroundColor: ['#2d9f21', '#f6f1f151'],
-                borderColor: 'rgba(0, 0, 0, 0)'
-            }],
-            labels: ['Humidity', 'Remaining']
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true, 
-            cutout: '70%', // This makes it a donut chart
-            plugins: {
-                legend: {
-                    display: false // This hides the legend
-                },
-                tooltip: {
-                enabled: false // This disables the tooltip
-                }
-            }
-        },
-        plugins: [{
-            afterDraw: function(chart) {
-                if (chart.data.datasets && chart.data.datasets[0]) {
-                    var ctx = chart.ctx;
-                    var value = chart.data.datasets[0].data[0]; // Get the value of the first dataset
-                    var cx = chart.chartArea.left + chart.chartArea.width / 2;
-                    var cy = chart.chartArea.top + chart.chartArea.height / 2;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.font = '20px Arial';
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(value + '%', cx, cy);
-                }
-            }
-        }]
-    });
-    // Calendar
+}
+
+    // Crear los charts de humedad
+    var humedad12 = createChartHumedad(h1_s2, [56, 44], ['#2d9f21', '#f6f1f151']);
+    var humedad22 = createChartHumedad(h2_s2, [40, 60], ['#2d9f21', '#f6f1f151']);
+    var humedad32 = createChartHumedad(h3_s2, [20, 80], ['#2d9f21', '#f6f1f151']);
+    var humedad11 = createChartHumedad(h1_s1, [66, 34], ['#2d9f21', '#f6f1f151']);
+    var humedad21 = createChartHumedad(h2_s1, [45, 55], ['#2d9f21', '#f6f1f151']);
+    var humedad31 = createChartHumedad(h3_s1, [25, 75], ['#2d9f21', '#f6f1f151']);
+
+///////////////////////////////
+// CALENDARIO
+///////////////////////////////
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
