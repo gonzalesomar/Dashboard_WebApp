@@ -194,12 +194,9 @@ body{
 .humedad .chart canvas{
     margin-right: 15px;
 }
-
-
-/* .dashboard .main .sensors .humedad span canvas{
-    width: 100px;
-    height: 100px;
-} */
+.dashboard .main .sensors .humedad:hover{
+    background-color: rgba(136, 218, 251, 0.8);
+}
 
 .dashboard .main .sensors .ec{
     padding: 10px 20px 20px 10px;
@@ -212,7 +209,7 @@ body{
     align-items: center;
 }
 .dashboard .main .sensors .ec:hover{
-    background-color: rgba(243, 255, 168, 0.5);
+    background-color: rgba(243, 255, 168, 0.9);
 }
 .dashboard .main .sensors .battery{
     padding: 10px 20px 20px 10px;
@@ -225,7 +222,7 @@ body{
     align-items: center;
 }
 .dashboard .main .sensors .battery:hover{
-    background-color: rgba(108, 227, 134, 0.5);
+    background-color: rgba(108, 227, 134, 0.8);
 }
 .dashboard .main .sensors .material-symbols-outlined{
     font-size: 70px;
