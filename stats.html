@@ -13,7 +13,6 @@
     <!-- <link rel="stylesheet" href="assets/css/icons.css"> -->
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
 </head>
 <body>
     <div class = "dashboard"> <!-- This is where the dashboard will be displayed -->
@@ -36,7 +35,7 @@
                 </a>
             </nav>
         </section> <!-- Navigation End-->
-        <section class = "main">
+        <section class = "main_stats">
             <div class="title"> <!-- Title-->
                 <h1> Estadisticas </h1>
                 <p> En esta sección se muestran las estadísticas de los sensores. </p>
@@ -48,14 +47,34 @@
                     </select>
                 </form>
             </div> <!-- Title End-->
-            <canvas id="Humedad_1"></canvas>
-            <canvas id="Humedad_2"></canvas>
-            <canvas id="EC_1"></canvas>
-            <canvas id="EC_2"></canvas>
-            <canvas id="BAT_1"></canvas>
-            <canvas id="BAT_2"></canvas>
+            <div class="charts"> 
+                <div class="chart_1"> 
+                    <div>
+                        <canvas id="Humedad_1"></canvas>
+                    </div>
+                    <div>
+                        <canvas id="EC_1"></canvas>
+                    </div>
+                    <div>
+                        <canvas id="BAT_1"></canvas>
+                    </div>
+                    
+                </div>
+                <div class="chart_2" style="display: none;"> 
+                    <div>
+                        <canvas id="Humedad_2"></canvas>
+                    </div>
+                    <div>
+                        <canvas id="EC_2"></canvas>
+                    </div>
+                    <div>
+                        <canvas id="BAT_2"></canvas>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
+    <script src="stats_selected.js"></script>
 </body>
 
 <script>
@@ -66,7 +85,7 @@ function ChartHumidity(canvasId, data, xLabels) {
             label: `Al ${25 * (index + 1)}% de profundidad`,
             data: dataset,
             borderColor: colors[index % colors.length],
-            borderWidth: 1
+            borderWidth: 2
         };
     });
 
@@ -79,6 +98,9 @@ function ChartHumidity(canvasId, data, xLabels) {
         },
         options: {
             plugins: {
+                legend: {
+                    display: window.innerWidth > 768
+                },
                 title: {
                     display: true,
                     text: 'Humedad %RH',
@@ -117,7 +139,7 @@ function ChartHumidity(canvasId, data, xLabels) {
 }
 
 var data_humedad_1 = [[75, 72, 63, 59, 50, 43], [62, 49, 45, 35, 27, 22], [52, 39, 35, 25, 19, 13]];
-var data_humedad_2 = [[75, 72, 63, 59, 50, 43], [62, 49, 45, 35, 27, 22], [52, 39, 35, 25, 19, 13]];
+var data_humedad_2 = [[30, 42, 73, 59, 40, 33], [22, 39, 65, 45, 27, 22], [12, 29, 55, 40, 19, 13]];
 
 var xLabels = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
 
@@ -129,8 +151,10 @@ function ChartEC(canvasId, dataset, xLabels) {
     var data = {
         label: `EC del suelo`,
         data: dataset,
-        borderColor: 'rgba(75,192,192,1)',
-        borderWidth: 1
+        borderColor: 'rgba(255,205,86,1)',
+        borderWidth: 2,
+        fill: true, 
+        backgroundColor: 'rgba(255,205,86,0.2)'
     };
 
     var ctx = document.getElementById(canvasId);
@@ -182,8 +206,8 @@ function ChartEC(canvasId, dataset, xLabels) {
     });
 }
 
-var dataset_ec_1 = [12, 19, 3, 5, 2, 3];
-var dataset_ec_2 = [12, 19, 3, 5, 2, 3];
+var dataset_ec_1 = [22, 29, 13, 45, 62, 43];
+var dataset_ec_2 = [12, 19, 31, 25, 20, 39];
 
 ChartEC('EC_1', dataset_ec_1, xLabels);
 ChartEC('EC_2', dataset_ec_2, xLabels);
@@ -192,13 +216,14 @@ function ChartBat(canvasId, dataset, xLabels) {
     var data = {
         label: `Batería del sistema`,
         data: dataset,
-        borderColor: 'rgba(75,192,192,1)',
-        borderWidth: 1
+        borderColor: 'rgba(0, 168, 64)',
+        borderWidth: 1,
+        backgroundColor: 'rgba(0, 168, 64, 0.5)',
     };
 
     var ctx = document.getElementById(canvasId);
     new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: xLabels,
             datasets: [data]
@@ -246,7 +271,7 @@ function ChartBat(canvasId, dataset, xLabels) {
 }
 
 var dataset_bat_1 = [100, 93, 74, 53, 22, 13];
-var dataset_bat_2 = [100, 93, 74, 53, 22, 13];
+var dataset_bat_2 = [80, 73, 64, 53, 32, 23];
 
 ChartBat('BAT_1', dataset_bat_1, xLabels);
 ChartBat('BAT_2', dataset_bat_2, xLabels);

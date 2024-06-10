@@ -7,7 +7,7 @@ body{
     background-color: #f6f1f151;
 }
 .dashboard{
-    padding: 0px 0px;
+    padding: 0px 10px 10px 5px;
     margin: 0 auto;
 }
 /* ==============================================
@@ -110,25 +110,39 @@ body{
 
 
 /* Tittle */
-.dashboard .main .title {
+.dashboard .main .title ,
+.dashboard .main_stats .title {
     margin-bottom: 30px;
 }
-.dashboard .main .title h1{
+.dashboard .main .title h1,
+.dashboard .main_stats .title h1{
     font-size: 35px;
     line-height: 0px;
 }
-.dashboard .main .title form{
-    margin-top: 40px;
+.dashboard .main_stats .title form{
+    background-color: #c4eb5aac;
+    border: 1px solid #ffffff;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    width: 80%;
 }
-.dashboard .main .title form label{
-    margin-right: 15px;
-    color: #727272;
+.dashboard .main_stats .title form label{
     font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin-right: 10px;
 }
-.dashboard .main .title form select{
+.dashboard .main_stats .title form select{
     border: none;
     font-size: 16px;
+    font-weight: bold;
+    color: #333;
     background-color: rgba( 0 0 0 / 0);
+}
+/* Charts Stats */
+.dashboard .main_stats .charts{
+    width: 95%;
 }
 
 /* Sensors */
@@ -267,6 +281,21 @@ button:hover {
     .dashboard .main .sensors .sensor_2{
         width: 45%;
     }
+    .dashboard .main_stats .charts{
+        width: 100%;
+    }
+    .dashboard .main_stats .charts .chart_1,
+    .dashboard .main_stats .charts .chart_2{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .dashboard .main_stats .charts .chart_1 div,
+    .dashboard .main_stats .charts .chart_2 div{
+        margin-top: 50px;
+        margin-right: 10px;
+        width: 48%;
+    }
     /* Calendar */
     .dashboard .calendarizacion{
         display: flex;
@@ -284,7 +313,7 @@ button:hover {
 /* Media Query 1024 px */
 @media only screen and (min-width: 1024px){
     .dashboard{
-        padding: 0px 0px;
+        padding: 1px 0px;
         margin: 0 auto;
     }
     .dashboard .navigation,
@@ -306,6 +335,12 @@ button:hover {
         margin-left: 220px;
         margin-right: 20px;
     }
+    .dashboard .main_stats{
+        top: 5px;
+        width: 68%;
+        margin-left: 220px;
+        margin-right: 20px;
+    }
     .dashboard .calendarizacion{
         width: 30%;
         padding-top: 0px;
@@ -319,7 +354,7 @@ button:hover {
         border-radius: 10px;
     }
     .dashboard .navigation nav{
-        margin-top: 5vh;
+        margin-top: 15vh;
         margin-bottom: 100vh;
     }
     .dashboard .navigation nav a{
